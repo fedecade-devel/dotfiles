@@ -5,3 +5,5 @@
 	co = checkout
 [core]
 	editor = vi
+[color]
+	ui = true
