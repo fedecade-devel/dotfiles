@@ -96,6 +96,9 @@ case ${OSTYPE} in
     alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
     ;;
   linux*)
+    [ -x "`which vim 2>/dev/null`" ] && alias vi=`which vim 2>/dev/null`
+    export EDITOR=vi
+    export GIT_EDITOR=vi
     ;;
   freebsd*)
     ;;
