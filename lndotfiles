@@ -1,0 +1,13 @@
+#! /bin/sh
+
+rm ~/.gitconfig
+rm ~/.gvimrc
+rm ~/.tmux.conf
+rm ~/.vimrc
+rm ~/.zshrc
+
+ln -s ~/dotfiles/.gitconfig ~/.gitconfig
+ln -s ~/dotfiles/.gvimrc ~/.gvimrc
+ln -s ~/dotfiles/.tmux.conf ~/.tmux.conf
+ln -s ~/dotfiles/.vimrc ~/.vimrc
+ln -s ~/dotfiles/.zshrc ~/.zshrc

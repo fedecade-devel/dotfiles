@@ -1,0 +1,7 @@
+[user]
+	name = Hori Tetsuya
+	email = hori@fedecade.com
+[alias]
+	co = checkout
+[core]
+	editor = vi
