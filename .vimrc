@@ -1,5 +1,28 @@
 set nocompatible
 
+"+++ NeoBundle
+filetype plugin indent off
+
+if has('vim_starting')
+  set runtimepath+=~/dotfiles/.vim/bundle/neobundle.vim/
+  call neobundle#rc(expand('~/dotfiles/.vim/bundle/'))
+endif
+
+call neobundle#begin(expand('~/dotfiles/.vim/bundle/'))
+
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/vimproc.vim'
+NeoBundle 'tpope/vim-surround.git'
+NeoBundle 'The-NERD-Commenter' " 2.0.0 A plugin that allows for easy commenting of code for many filetypes.
+NeoBundle 'YankRing.vim' " 1.4   Maintains a history of previous yanks, changes and deletes
+NeoBundle 'neocomplcache' " 2.36  Ultimate auto completion system for Vim
+
+call neobundle#end()
+
+filetype plugin indent on
+
 "+++ Basics
 
 set clipboard+=unnamed,autoselect
