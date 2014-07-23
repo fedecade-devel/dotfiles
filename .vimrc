@@ -58,3 +58,34 @@ autocmd BufNewFile,BufRead ~/wb2g/blog/article/* set isk+=\=,\"
 
 "+++ Search
 nnoremap <Esc><Esc> :nohlsearch<CR><Esc>
+
+"+++ Window Handling Keymaps
+nnoremap s <Nop>
+nnoremap sv :<C-u>vs<Cr>
+nnoremap ss :<C-u>sp<Cr>
+nnoremap sj <C-w>j
+nnoremap sk <C-w>k
+nnoremap sl <C-w>l
+nnoremap sh <C-w>h
+nnoremap sJ <C-w>J
+nnoremap sK <C-w>K
+nnoremap sL <C-w>L
+nnoremap sH <C-w>H
+nnoremap sr <C-w>r
+nnoremap sO <C-w>=
+nnoremap st :<C-u>tabnew<Cr>
+nnoremap sn gt
+nnoremap sp gT
+nnoremap sq :<C-u>q<Cr>
+nnoremap sQ :<C-u>bd<Cr>
+nnoremap sT :<C-u>Unite tab<Cr>
+nnoremap sb :<C-u>Unite buffer_tab<Cr>
+nnoremap sB :<C-u>Unite buffer<Cr>
+
+"+++ Edit Keymap
+nnoremap Y y$
+
+"+++ CommandLine Mode
+cnoremap %% <C-R>=expand('%:p:h').'/'<Cr>
+
+nnoremap ; :
