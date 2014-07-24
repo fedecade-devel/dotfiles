@@ -14,6 +14,7 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimproc.vim'
+NeoBundle 'Shougo/vimfiler.vim'
 NeoBundle 'tpope/vim-surround.git'
 NeoBundle 'The-NERD-Commenter' " 2.0.0 A plugin that allows for easy commenting of code for many filetypes.
 NeoBundle 'YankRing.vim' " 1.4   Maintains a history of previous yanks, changes and deletes
@@ -58,3 +59,8 @@ autocmd BufNewFile,BufRead ~/wb2g/blog/article/* set isk+=\=,\"
 
 "+++ Search
 nnoremap <Esc><Esc> :nohlsearch<CR><Esc>
+
+"+++ VimFiler
+"autocmd VimEnter * VimFiler -split -simple -winwidth=30 -no-quit
+let g:vimfiler_as_default_explorer=1
+nnoremap <silent> <Leader>fi :<C-u>VimFiler -split -simple -winwidth=30 -no-quit<CR>
