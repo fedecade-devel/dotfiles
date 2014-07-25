@@ -72,6 +72,11 @@ let g:neocomplete#enable_at_startup = 1
 "+++ neocomplete-php
 let g:neocomplete_php_locale = 'ja'
 
+"+++ NEADCommenter
+let g:NERDSpaceDelims = 1
+nmap ,, <Plug>NERDCommenterToggle
+vmap ,, <Plug>NERDCommenterToggle
+
 "+++ Window Handling Keymaps
 nnoremap s <Nop>
 nnoremap sv :<C-u>vs<Cr>
