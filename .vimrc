@@ -18,7 +18,7 @@ NeoBundle 'Shougo/vimfiler.vim'
 NeoBundle 'tpope/vim-surround.git'
 NeoBundle 'The-NERD-Commenter' " 2.0.0 A plugin that allows for easy commenting of code for many filetypes.
 NeoBundle 'YankRing.vim' " 1.4   Maintains a history of previous yanks, changes and deletes
-NeoBundle 'neocomplcache' " 2.36  Ultimate auto completion system for Vim
+NeoBundle 'Shougo/neocomplete.vim'
 
 call neobundle#end()
 
@@ -64,6 +64,9 @@ nnoremap <Esc><Esc> :nohlsearch<CR><Esc>
 "autocmd VimEnter * VimFiler -split -simple -winwidth=30 -no-quit
 let g:vimfiler_as_default_explorer=1
 nnoremap <silent> <Leader>fi :<C-u>VimFiler -split -simple -winwidth=30 -no-quit<CR>
+
+"+++ neocomplete
+let g:neocomplete#enable_at_startup = 1
 
 "+++ Window Handling Keymaps
 nnoremap s <Nop>
