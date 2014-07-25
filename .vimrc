@@ -96,6 +96,8 @@ nnoremap sn gt
 nnoremap sp gT
 nnoremap sq :<C-u>q<Cr>
 nnoremap sQ :<C-u>bd<Cr>
+nnoremap sw :<C-u>w<Cr>
+nnoremap sW :<C-u>wq<Cr>
 nnoremap sT :<C-u>Unite tab<Cr>
 nnoremap sb :<C-u>Unite buffer_tab<Cr>
 nnoremap sB :<C-u>Unite buffer<Cr>
