@@ -1,0 +1,15 @@
+#+++ phpenv
+
+#export PATH=~/.phpenv/bin:$PATH
+#eval "$(phpenv init -)"
+
+export PATH=/usr/local/php5/bin:$PATH
+
+#+++ Prompt Override
+local p_info="%n@%m"
+local p_cdir="%B%F{cyan}[%~ $p_info]%f%b"$'\n'
+local p_mark="%B%F{ref}%(!,#,>)%f%b"
+PROMPT="$p_cdir$p_mark "
+
+#+++ Stastics
+export EBARA_MYPAGE=~/visor/projects/EBARA_COM/source/ebara-mypage/

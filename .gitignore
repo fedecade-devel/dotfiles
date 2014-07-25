@@ -1,2 +1,5 @@
 .vim/bundle/
 .gitconfig
+.vim/tmp/
+.netrwhist
+*.un~
