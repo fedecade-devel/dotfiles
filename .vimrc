@@ -19,6 +19,7 @@ NeoBundle 'tpope/vim-surround.git'
 NeoBundle 'The-NERD-Commenter' " 2.0.0 A plugin that allows for easy commenting of code for many filetypes.
 NeoBundle 'YankRing.vim' " 1.4   Maintains a history of previous yanks, changes and deletes
 NeoBundle 'Shougo/neocomplete.vim'
+NeoBundle 'violetyk/neocomplete-php.vim'
 
 call neobundle#end()
 
@@ -67,6 +68,9 @@ nnoremap <silent> <Leader>fi :<C-u>VimFiler -split -simple -winwidth=30 -no-quit
 
 "+++ neocomplete
 let g:neocomplete#enable_at_startup = 1
+
+"+++ neocomplete-php
+let g:neocomplete_php_locale = 'ja'
 
 "+++ Window Handling Keymaps
 nnoremap s <Nop>
