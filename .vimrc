@@ -38,6 +38,7 @@ set dict=~/.vim/dict/general.dict
 set number
 set enc=utf-8
 set fencs=utf-8,cp932
+set fileformat=unix
 
 "+++ Indent
 set autoindent
