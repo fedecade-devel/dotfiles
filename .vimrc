@@ -128,3 +128,7 @@ nnoremap sd <ESC>i<C-r>=strftime("%Y/%m%d %H:%M:%S ")<Cr>
 noremap! <silent> <C-j> <Esc>
 nnoremap ; :
 
+"+++ Loading local environment file
+if filereadable(expand('~/.vimrc.local'))
+  source ~/.vimrc.local
+endif
