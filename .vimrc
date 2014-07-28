@@ -20,6 +20,8 @@ NeoBundle 'The-NERD-Commenter' " 2.0.0 A plugin that allows for easy commenting 
 NeoBundle 'YankRing.vim' " 1.4   Maintains a history of previous yanks, changes and deletes
 NeoBundle 'Shougo/neocomplete.vim'
 NeoBundle 'violetyk/neocomplete-php.vim'
+NeoBundle 'Shougo/neosnippet'
+NeoBundle 'Shougo/neosnippet-snippets'
 
 call neobundle#end()
 
@@ -71,6 +73,17 @@ let g:neocomplete#enable_at_startup = 1
 
 "+++ neocomplete-php
 let g:neocomplete_php_locale = 'ja'
+
+"+++ neosnippet
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
+xmap <C-k> <Plug>(neosnippet_expand_target)
+
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
 
 "+++ NEADCommenter
 let g:NERDSpaceDelims = 1
