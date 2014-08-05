@@ -119,6 +119,10 @@ nnoremap sW :<C-u>wq<Cr>
 nnoremap sT :<C-u>Unite tab<Cr>
 nnoremap sb :<C-u>Unite buffer_tab<Cr>
 nnoremap sB :<C-u>Unite buffer<Cr>
+nnoremap sF :<C-u>Unite file<Cr>
+
+"+++ Unite
+noremap :uff :<C-u>UniteWithBufferDir file file/new -buffer-name=file<Cr>
 
 "+++ Edit Keymap
 nnoremap Y y$
@@ -163,4 +167,3 @@ let g:quickrun_config['php.phpunit']['exec'] = '%c %o %s'
 if filereadable(expand('~/.vimrc.local'))
   source ~/.vimrc.local
 endif
-
