@@ -22,6 +22,8 @@ NeoBundle 'Shougo/neocomplete.vim'
 NeoBundle 'violetyk/neocomplete-php.vim'
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/neosnippet-snippets'
+NeoBundle 'thinca/vim-quickrun'
+NeoBundle 'karakaram/vim-quickrun-phpunit'
 
 call neobundle#end()
 
@@ -128,7 +130,36 @@ nnoremap sd <ESC>i<C-r>=strftime("%Y/%m%d %H:%M:%S ")<Cr>
 noremap! <silent> <C-j> <Esc>
 nnoremap ; :
 
+"+++ Quickrun
+augroup QuickRunPHPUnit
+	autocmd!
+	autocmd BufWinEnter,BufNewFile *Test.php set filetype=php.phpunit
+augroup END
+
+let g:quickrun_config = {}
+let g:quickrun_config['_'] = {}
+let g:quickrun_config['_']['runnner'] = 'vimproc'
+let g:quickrun_config['_']['runnner/vimproc/updatetime'] = 100
+let g:quickrun_config['php.phpunit'] = {}
+let g:quickrun_config['php.phpunit']['outputter'] = 'phpunit'
+let g:quickrun_config['php.phpunit']['outputter/phpunit/height'] = 3
+let g:quickrun_config['php.phpunit']['outputter/phpunit/running_mark'] = 'running....'
+let g:quickrun_config['php.phpunit']['command'] = 'phpunit'
+let g:quickrun_config['php.phpunit']['cmdopt'] = ''
+let g:quickrun_config['php.phpunit']['exec'] = '%c %o %s'
+"------------------------------------------------------------------
+"- quickrun buffer outputter def
+"------------------------------------------------------------------
+" let g:quickrun_config['php.phpunit']['outputter'] = 'buffer'
+" let g:quickrun_config['php.phpunit']['outputter/buffer/split'] = 'vertical 50'
+" let g:quickrun_config['php.phpunit']['outputter/buffer/split'] = 'botright 17'
+" let g:quickrun_config['php.phpunit']['outputter/error/error'] = 'quickfix'
+" let g:quickrun_config['php.phpunit']['outputter/error/success'] = 'buffer'
+" let g:quickrun_config['php.phpunit']['outputter'] = 'error'
+"------------------------------------------------------------------
+
 "+++ Loading local environment file
 if filereadable(expand('~/.vimrc.local'))
   source ~/.vimrc.local
 endif
+
