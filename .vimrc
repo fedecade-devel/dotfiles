@@ -69,7 +69,8 @@ nnoremap <Esc><Esc> :nohlsearch<CR><Esc>
 "+++ VimFiler
 "autocmd VimEnter * VimFiler -split -simple -winwidth=30 -no-quit
 let g:vimfiler_as_default_explorer=1
-nnoremap <silent> <Leader>fi :<C-u>VimFiler -split -simple -winwidth=30 -no-quit<CR>
+nnoremap <silent> <Leader>fi :<C-u>VimFiler -simple<CR>
+nnoremap <silent> <Leader>fs :<C-u>VimFiler -split -simple -winwidth=30 -no-quit<CR>
 nnoremap <silent> <Leader>fb :<C-u>VimFilerBufferDir -split -simple -winwidth=30 -no-quit<CR>
 
 "+++ neocomplete
