@@ -133,7 +133,7 @@ cnoremap %% <C-R>=expand('%:p:h').'/'<Cr>
 "+++ Key Mapping for Anyone else...
 nnoremap sd <ESC>i<C-r>=strftime("%Y/%m%d %H:%M:%S ")<Cr>
 noremap! <silent> <C-j> <Esc>
-nnoremap ; :
+" nnoremap ; :
 
 "+++ Quickrun
 augroup QuickRunPHPUnit

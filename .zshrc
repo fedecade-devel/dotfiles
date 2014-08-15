@@ -26,7 +26,8 @@ fi
 
 setopt hist_ignore_all_dups hist_ignore_dups hist_save_no_dups appendhistory #share_history
 
-autoload -Uz history-search-end
+# autoload -Uz history-search-end
+autoload history-search-end
 zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
 bindkey "^P" history-beginning-search-backward-end
@@ -73,6 +74,7 @@ fi
 # zmv
 autoload -Uz zmv
 alias zmv='noglob zmv -W'
+alias zcp='noglob zmv -W -C'
 
 # Homebrew
 if [ -x "`which brew 2>/dev/null`" ]; then
