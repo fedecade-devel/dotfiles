@@ -43,11 +43,34 @@ export TERM=xterm-256color
 autoload colors
 colors
 
+# Git
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' enable git svn
+zstyle ':vcs_info:*' max-exports 6
+zstyle ':vcs_info:git:*' formats '%b@%r' '%c' '%u'
+zstyle ':vcs_info:git:*' actionformats '%b@%r|%a' '%c' '%u'
+setopt prompt_subst
+function vcs_echo {
+	local st branch color
+	STY=LANG=en_US.UTF-8 vcs_info
+	st=`git status 2> /dev/null`
+	if [[ -z $st ]]; then return; fi
+	branch="$vcs_info_msg_0_"
+	if [[ -n "$vcs_info_msg_1_" ]]; then color=${fg[green]}
+	elif [[ -n "$vcs_info_msg_2_" ]]; then color=${fg[red]}
+	elif [[ -n `echo "$st" | grep "^Untracked"` ]]; then color=${fg[blue]}
+	else color=${fg[cyan]}
+	fi
+	echo "%{$color%}(%{$branch%})%{$reset_color%}" | sed -e s/@/"%F{yellow}@%f%{$color%}"/
+}
+
 # Prompt
-local p_cdir="%B%F{cyan}[%~]%f%b"$'\n'
-local p_info="%n@%m"
-local p_mark="%B%F{ref}%(!,#,>)%f%b"
-PROMPT="$p_cdir$p_info $p_mark "
+# local p_cdir="%B%F{cyan}[%~]%f%b"$'\n'
+# local p_info="%n@%m"
+# local p_mark="%B%F{ref}%(!,#,>)%f%b"
+# PROMPT="$p_cdir$p_info $p_mark"
+PROMPT='%B%F{yellow}[%~]%f `vcs_echo`
+%(?.%(!,#,>).%F{red}%(!,#,>)%f)%b '
 
 # tmux
 if [ -x "`which tmux 2>/dev/null`" ]; then
