@@ -1,5 +1,5 @@
 # Basics
-export PATH=$HOME/.phpenv/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/.phpenv/bin:$HOME/.rbenv/bin
 [ -e $HOME/bin -a -d $HOME/bin ] && export PATH=$HOME/bin:$PATH
 
 # Enbeded Command Aliases
