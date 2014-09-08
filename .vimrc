@@ -125,6 +125,9 @@ nnoremap sF :<C-u>Unite file<Cr>
 "+++ Unite
 noremap :uff :<C-u>UniteWithBufferDir file file/new -buffer-name=file<Cr>
 
+"+++ YankRing.vim
+let g:yankring_history_dir="$HOME/.vim/tmp"
+
 "+++ Edit Keymap
 nnoremap Y y$
 

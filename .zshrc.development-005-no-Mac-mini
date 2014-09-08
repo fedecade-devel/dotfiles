@@ -3,7 +3,7 @@
 #export PATH=~/.phpenv/bin:$PATH
 #eval "$(phpenv init -)"
 
-export PATH=/usr/local/php5/bin:$PATH
+# export PATH=/usr/local/php5/bin:$PATH
 
 #+++ Prompt Override
 # local p_info="%n@%m"
@@ -13,3 +13,5 @@ export PATH=/usr/local/php5/bin:$PATH
 
 #+++ Stastics
 export EBARA_MYPAGE=~/visor/projects/EBARA_COM/source/ebara-mypage/
+export SEON=~/visor/projects/SEON/devel/okyakunokoe/
+export REPO=~/visor/dailyreport/

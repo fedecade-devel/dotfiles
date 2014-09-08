@@ -1,5 +1,5 @@
 # Basics
-export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+export PATH=$HOME/.phpenv/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 [ -e $HOME/bin -a -d $HOME/bin ] && export PATH=$HOME/bin:$PATH
 
 # Enbeded Command Aliases
@@ -130,6 +130,9 @@ case ${OSTYPE} in
   *)
     ;;
 esac
+
+# phpenv
+eval "$(phpenv init - zsh)"
 
 #typeset -U PATH
 #setopt extendedglob nomatch
