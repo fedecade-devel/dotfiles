@@ -167,7 +167,21 @@ let g:quickrun_config['php.phpunit']['exec'] = '%c %o %s'
 " let g:quickrun_config['php.phpunit']['outputter'] = 'error'
 "------------------------------------------------------------------
 
+"+++ Binary Edit Mode
+augroup BinXXD
+	autocmd!
+	autocmd BufReadPre *.bin let &binary = 1
+	autocmd BufReadPost * if &binary | silent %!xxd -g 1
+	autocmd BufReadPost * set ft=xxd | endif
+	autocmd BufWritePre * if &binary | silent %!xxd -r
+	autocmd BufWritePre * endif
+	autocmd BufWritePost * if &binary | silent %!xxd -g 1
+	autocmd BufWritePost * set nomod | endif
+augroup END
+
 "+++ Loading local environment file
 if filereadable(expand('~/.vimrc.local'))
   source ~/.vimrc.local
 endif
+
+nnoremap cR :!clear;codecept run "%"<CR>

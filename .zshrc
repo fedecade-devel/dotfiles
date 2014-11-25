@@ -1,11 +1,14 @@
 # Basics
-export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/.phpenv/bin:$HOME/.rbenv/bin
+export PATH=$HOME/.phpenv/bin:$HOME/.rbenv/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 [ -e $HOME/bin -a -d $HOME/bin ] && export PATH=$HOME/bin:$PATH
 
 # Enbeded Command Aliases
 alias ls='ls -lp'
 alias lsa='ls -alp'
 alias lsh='ls -alp | grep " \."'
+alias lsf='ls | grep -v "/$"'
+alias lss='/bin/ls'
+alias sudo='sudo -E '
 
 # Completion
 zstyle :compinstall filename '~/.zshrc'
@@ -30,12 +33,13 @@ setopt hist_ignore_all_dups hist_ignore_dups hist_save_no_dups appendhistory #sh
 autoload history-search-end
 zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
-bindkey "^P" history-beginning-search-backward-end
-bindkey "^N" history-beginning-search-forward-end
+bindkey -v "^P" history-beginning-search-backward-end
+bindkey -v "^N" history-beginning-search-forward-end
 
 # Key Bind
 bindkey -v
 zle-line-init() { zle -K vicmd; } ; zle -N zle-line-init # set initial mode to command mode
+bindkey -v '^j' vi-cmd-mode
 
 
 # Terminal
@@ -106,9 +110,10 @@ fi
 
 # Ruby
 #if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
-if [ -x "`which rbenv 2>/dev/null`" ]; then 
-  eval "$(rbenv init -)"
-fi
+# if [ -x "`which rbenv 2>/dev/null`" ]; then 
+  # eval "$(rbenv init - zsh)"
+# fi
+eval "$(rbenv init - zsh)"
 
 # Host depend environment
 [ -f ~/.zshrc.`hostname -s` ] && source ~/.zshrc.`hostname -s`
@@ -132,7 +137,12 @@ case ${OSTYPE} in
 esac
 
 # phpenv
-eval "$(phpenv init - zsh)"
+if [ -x "`which phpenv 2>/dev/null`" ]; then
+	eval "$(phpenv init - zsh)"
+fi
 
 #typeset -U PATH
 #setopt extendedglob nomatch
+
+# divenv
+eval "$(direnv hook zsh)"

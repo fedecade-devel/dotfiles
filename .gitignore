@@ -1,5 +1,5 @@
-.vim/bundle/
 .gitconfig
-.vim/tmp/
 .netrwhist
 *.un~
+.zshrc.development-005-no-Mac-mini
+.vim/
