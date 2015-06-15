@@ -1,11 +1,13 @@
 set nocompatible
 
+set laststatus=2
+
 "+++ NeoBundle
 filetype plugin indent off
 
 if has('vim_starting')
   set runtimepath+=~/dotfiles/.vim/bundle/neobundle.vim/
-  call neobundle#rc(expand('~/dotfiles/.vim/bundle/'))
+  " call neobundle#rc(expand('~/dotfiles/.vim/bundle/'))
 endif
 
 call neobundle#begin(expand('~/dotfiles/.vim/bundle/'))
@@ -24,6 +26,11 @@ NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'karakaram/vim-quickrun-phpunit'
+NeoBundle 'hynek/vim-python-pep8-indent'
+NeoBundle 'itchyny/lightline.vim'
+NeoBundle 'airblade/vim-gitgutter'
+NeoBundleLazy 'vim-scripts/python_fold', {
+      \ "autoload" : {"filetypes" : ["python", "python3", "python.pytest", "djangohtml"]}}
 
 call neobundle#end()
 
@@ -65,6 +72,7 @@ autocmd BufNewFile,BufRead ~/wb2g/blog/article/* set isk+=\=,\"
 
 "+++ Search
 nnoremap <Esc><Esc> :nohlsearch<CR><Esc>
+" nnoremap / /\v
 
 "+++ VimFiler
 "autocmd VimEnter * VimFiler -split -simple -winwidth=30 -no-quit
@@ -142,8 +150,13 @@ noremap! <silent> <C-j> <Esc>
 "+++ Quickrun
 augroup QuickRunPHPUnit
 	autocmd!
-	autocmd BufWinEnter,BufNewFile *Test.php set filetype=php.phpunit
+	" autocmd BufWinEnter,BufNewFile *Test.php set filetype=php.phpunit
+	autocmd BufWinEnter,BufNewFile /vagrant/fuel/app/tests/**/*.php set filetype=php.phpunit
 augroup END
+augroup QuickRunPyTest
+  autocmd!
+  autocmd BufRead,BufNewFile test*.py set filetype=python.pytest
+augroup end
 
 let g:quickrun_config = {}
 let g:quickrun_config['_'] = {}
@@ -153,9 +166,13 @@ let g:quickrun_config['php.phpunit'] = {}
 let g:quickrun_config['php.phpunit']['outputter'] = 'phpunit'
 let g:quickrun_config['php.phpunit']['outputter/phpunit/height'] = 3
 let g:quickrun_config['php.phpunit']['outputter/phpunit/running_mark'] = 'running....'
-let g:quickrun_config['php.phpunit']['command'] = 'phpunit'
-let g:quickrun_config['php.phpunit']['cmdopt'] = ''
+let g:quickrun_config['php.phpunit']['command'] = '/vagrant/fuel/vendor/phpunit/phpunit/phpunit'
+let g:quickrun_config['php.phpunit']['cmdopt'] = '--configuration /vagrant/fuel/app/phpunit.xml'
 let g:quickrun_config['php.phpunit']['exec'] = '%c %o %s'
+let g:quickrun_config['python.pytest'] = {}
+let g:quickrun_config['python.pytest']['command'] = 'py.test'
+let g:quickrun_config['python.pytest']['cmdopt'] = '-s -v'
+let g:quickrun_config['python.pytest']['hook/shebang/enable'] = 0
 "------------------------------------------------------------------
 "- quickrun buffer outputter def
 "------------------------------------------------------------------
@@ -185,3 +202,84 @@ if filereadable(expand('~/.vimrc.local'))
 endif
 
 nnoremap cR :!clear;codecept run "%"<CR>
+
+"+++ Python
+if ! empty(neobundle#get("netcomplete.vim"))
+  autocmd FileType python setlocal completeopt-=preview
+endif
+" let g:quickrun_config['python.pytest'] = {
+  " \'comamnd': 'py.test',
+  " \'cmdopt': '-s -v',
+  " \'hook/shebang/enable': 0,
+  " \}
+" augroup QuickRunPyTest
+  " autocmd!
+  " autocmd BufRead,BufNewFile test*.py set filetype=python.pytest
+" augroup end
+
+"+++ LightLine
+let g:lightline = {
+        \ 'colorscheme': 'wombat',
+        \ 'mode_map': {'c': 'NORMAL'},
+        \ 'active': {
+        \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
+        \ },
+        \ 'component_function': {
+        \   'modified': 'MyModified',
+        \   'readonly': 'MyReadonly',
+        \   'fugitive': 'MyFugitive',
+        \   'filename': 'MyFilename',
+        \   'fileformat': 'MyFileformat',
+        \   'filetype': 'MyFiletype',
+        \   'fileencoding': 'MyFileencoding',
+        \   'mode': 'MyMode'
+        \ }
+        \ }
+
+function! MyModified()
+  return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+endfunction
+
+function! MyReadonly()
+  return &ft !~? 'help\|vimfiler\|gundo' && &readonly ? 'x' : ''
+endfunction
+
+function! MyFilename()
+  return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
+        \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
+        \  &ft == 'unite' ? unite#get_status_string() :
+        \  &ft == 'vimshell' ? vimshell#get_status_string() :
+        \ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
+        \ ('' != MyModified() ? ' ' . MyModified() : '')
+endfunction
+
+function! MyFugitive()
+  try
+    if &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head')
+      return fugitive#head()
+    endif
+  catch
+  endtry
+  return ''
+endfunction
+
+function! MyFileformat()
+  return winwidth(0) > 70 ? &fileformat : ''
+endfunction
+
+function! MyFiletype()
+  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+endfunction
+
+function! MyFileencoding()
+  return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
+endfunction
+
+function! MyMode()
+  return winwidth(0) > 60 ? lightline#mode() : ''
+endfunction
+
+"++ gitgutter
+let g:gitgutter_max_signs = 1000
+
+syntax on

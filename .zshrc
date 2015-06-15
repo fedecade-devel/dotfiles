@@ -1,5 +1,5 @@
-# Basics
-export PATH=$HOME/.phpenv/bin:$HOME/.rbenv/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+# Basics!
+export PATH=$HOME/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 [ -e $HOME/bin -a -d $HOME/bin ] && export PATH=$HOME/bin:$PATH
 
 # Enbeded Command Aliases
@@ -73,7 +73,7 @@ function vcs_echo {
 # local p_info="%n@%m"
 # local p_mark="%B%F{ref}%(!,#,>)%f%b"
 # PROMPT="$p_cdir$p_info $p_mark"
-PROMPT='%B%F{yellow}[%~]%f `vcs_echo`
+PROMPT='%B%F{green}[%~]%f `vcs_echo`
 %(?.%(!,#,>).%F{red}%(!,#,>)%f)%b '
 
 # tmux
@@ -113,7 +113,7 @@ fi
 # if [ -x "`which rbenv 2>/dev/null`" ]; then 
   # eval "$(rbenv init - zsh)"
 # fi
-eval "$(rbenv init - zsh)"
+# eval "$(rbenv init - zsh)"
 
 # Host depend environment
 [ -f ~/.zshrc.`hostname -s` ] && source ~/.zshrc.`hostname -s`
@@ -127,8 +127,8 @@ case ${OSTYPE} in
     ;;
   linux*)
     [ -x "`which vim 2>/dev/null`" ] && alias vi=`which vim 2>/dev/null`
-    export EDITOR=vi
-    export GIT_EDITOR=vi
+    export EDITOR=`which vim 2>/dev/null`
+    export GIT_EDITOR=$EDITOR
     ;;
   freebsd*)
     ;;
@@ -146,3 +146,18 @@ fi
 
 # divenv
 eval "$(direnv hook zsh)"
+
+# ssh-agent
+echo -n 'ssh-agent:'
+source ~/.ssh-agent-info
+ssh-add -l >&/dev/null
+if [[ $? -eq 2 ]]; then
+  echo -n 'ssh-agent: restart...'
+  ssh-agent > ~/.ssh-agent-info
+  source ~/.ssh-agent-info
+fi
+if ssh-add -l >&/dev/null; then
+  echo "ssh-agent: Identity is already stored."
+else
+  ssh-add
+fi
