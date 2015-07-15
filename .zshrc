@@ -1,5 +1,5 @@
 # Basics
-export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/.phpenv/bin:$HOME/.rbenv/bin
+export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:$HOME/.phpenv/bin:$HOME/.rbenv/bin
 [ -e $HOME/bin -a -d $HOME/bin ] && export PATH=$HOME/bin:$PATH
 
 # Enbeded Command Aliases
@@ -35,6 +35,7 @@ bindkey "^N" history-beginning-search-forward-end
 
 # Key Bind
 bindkey -v
+bindkey "^J" vi-cmd-mode
 zle-line-init() { zle -K vicmd; } ; zle -N zle-line-init # set initial mode to command mode
 
 
@@ -103,6 +104,7 @@ alias zcp='noglob zmv -W -C'
 if [ -x "`which brew 2>/dev/null`" ]; then
   [ -z "`echo $PATH | grep $(brew --prefix)/bin`" ] && export PATH="$(brew --prefix)/bin":$PATH
 fi
+alias brew="env PATH=${PATH/\/Users\/horitetsuya\/\.phpenv\/shims:/} brew"
 
 # Ruby
 #if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
@@ -136,3 +138,4 @@ eval "$(phpenv init - zsh)"
 
 #typeset -U PATH
 #setopt extendedglob nomatch
+eval "$(direnv hook zsh)"
