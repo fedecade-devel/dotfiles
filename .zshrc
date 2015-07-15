@@ -6,6 +6,9 @@ export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:$HOME/.
 alias ls='ls -lp'
 alias lsa='ls -alp'
 alias lsh='ls -alp | grep " \."'
+alias lsf='ls | grep -v "/$"'
+alias lss='/bin/ls'
+alias sudo='sudo -E '
 
 # Completion
 zstyle :compinstall filename '~/.zshrc'
@@ -30,13 +33,14 @@ setopt hist_ignore_all_dups hist_ignore_dups hist_save_no_dups appendhistory #sh
 autoload history-search-end
 zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
-bindkey "^P" history-beginning-search-backward-end
-bindkey "^N" history-beginning-search-forward-end
+bindkey -v "^P" history-beginning-search-backward-end
+bindkey -v "^N" history-beginning-search-forward-end
 
 # Key Bind
 bindkey -v
 bindkey "^J" vi-cmd-mode
 zle-line-init() { zle -K vicmd; } ; zle -N zle-line-init # set initial mode to command mode
+bindkey -v '^j' vi-cmd-mode
 
 
 # Terminal
@@ -70,7 +74,7 @@ function vcs_echo {
 # local p_info="%n@%m"
 # local p_mark="%B%F{ref}%(!,#,>)%f%b"
 # PROMPT="$p_cdir$p_info $p_mark"
-PROMPT='%B%F{yellow}[%~]%f `vcs_echo`
+PROMPT='%B%F{green}[%~]%f `vcs_echo`
 %(?.%(!,#,>).%F{red}%(!,#,>)%f)%b '
 
 # tmux
@@ -108,9 +112,10 @@ alias brew="env PATH=${PATH/\/Users\/horitetsuya\/\.phpenv\/shims:/} brew"
 
 # Ruby
 #if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
-if [ -x "`which rbenv 2>/dev/null`" ]; then 
-  eval "$(rbenv init -)"
-fi
+# if [ -x "`which rbenv 2>/dev/null`" ]; then 
+  # eval "$(rbenv init - zsh)"
+# fi
+# eval "$(rbenv init - zsh)"
 
 # Host depend environment
 [ -f ~/.zshrc.`hostname -s` ] && source ~/.zshrc.`hostname -s`
@@ -124,8 +129,8 @@ case ${OSTYPE} in
     ;;
   linux*)
     [ -x "`which vim 2>/dev/null`" ] && alias vi=`which vim 2>/dev/null`
-    export EDITOR=vi
-    export GIT_EDITOR=vi
+    export EDITOR=`which vim 2>/dev/null`
+    export GIT_EDITOR=$EDITOR
     ;;
   freebsd*)
     ;;
@@ -134,8 +139,27 @@ case ${OSTYPE} in
 esac
 
 # phpenv
-eval "$(phpenv init - zsh)"
+if [ -x "`which phpenv 2>/dev/null`" ]; then
+	eval "$(phpenv init - zsh)"
+fi
 
 #typeset -U PATH
 #setopt extendedglob nomatch
+
+# divenv
 eval "$(direnv hook zsh)"
+
+# ssh-agent
+# echo -n 'ssh-agent:'
+# source ~/.ssh-agent-info
+# ssh-add -l >&/dev/null
+# if [[ $? -eq 2 ]]; then
+  # echo -n 'ssh-agent: restart...'
+  # ssh-agent > ~/.ssh-agent-info
+  # source ~/.ssh-agent-info
+# fi
+# if ssh-add -l >&/dev/null; then
+  # echo "ssh-agent: Identity is already stored."
+# else
+  # ssh-add
+# fi
