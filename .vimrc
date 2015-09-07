@@ -31,6 +31,7 @@ NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'airblade/vim-gitgutter'
 NeoBundleLazy 'vim-scripts/python_fold', {
       \ "autoload" : {"filetypes" : ["python", "python3", "python.pytest", "djangohtml"]}}
+NeoBundle 'scrooloose/syntastic'
 
 call neobundle#end()
 
@@ -281,5 +282,18 @@ endfunction
 
 "++ gitgutter
 let g:gitgutter_max_signs = 1000
+
+"++ syntastic
+let g:syntastic_check_on_open = 1
+let g:syntastic_enable_signs = 1
+let g:syntastic_echo_current_error = 1
+let g:syntastic_auto_loc_list = 2
+let g:syntastic_enable_highlighting = 1
+let g:syntastic_php_php_args = '-l'
+let g:syntastic_python_checkers = ['flake8']
+let g:syntastic_python_flake8_args = '--ignore="E501"'
+set statusline +=%#warningmsg#
+set statusline +=%{SyntasticStatusLineFlag()}
+set statusline +=%*
 
 syntax on
