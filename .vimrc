@@ -15,7 +15,13 @@ call neobundle#begin(expand('~/dotfiles/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/vimproc.vim'
+NeoBundle 'Shougo/vimproc.vim', {
+\ 'build' : {
+\    'mac' : 'make -f make_mac.mak',
+\    'linux' : 'make',
+\    'unix' : 'gmake',
+\ },
+\}
 NeoBundle 'Shougo/vimfiler.vim'
 NeoBundle 'tpope/vim-surround.git'
 NeoBundle 'The-NERD-Commenter' " 2.0.0 A plugin that allows for easy commenting of code for many filetypes.

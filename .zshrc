@@ -1,5 +1,5 @@
-# Basics!
-export PATH=$HOME/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+# Basics
+export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:$HOME/.phpenv/bin:$HOME/.rbenv/bin
 [ -e $HOME/bin -a -d $HOME/bin ] && export PATH=$HOME/bin:$PATH
 
 # Enbeded Command Aliases
@@ -38,6 +38,7 @@ bindkey -v "^N" history-beginning-search-forward-end
 
 # Key Bind
 bindkey -v
+bindkey "^J" vi-cmd-mode
 zle-line-init() { zle -K vicmd; } ; zle -N zle-line-init # set initial mode to command mode
 bindkey -v '^j' vi-cmd-mode
 
@@ -107,6 +108,7 @@ alias zcp='noglob zmv -W -C'
 if [ -x "`which brew 2>/dev/null`" ]; then
   [ -z "`echo $PATH | grep $(brew --prefix)/bin`" ] && export PATH="$(brew --prefix)/bin":$PATH
 fi
+alias brew="env PATH=${PATH/\/Users\/horitetsuya\/\.phpenv\/shims:/} brew"
 
 # Ruby
 #if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
@@ -148,16 +150,16 @@ fi
 eval "$(direnv hook zsh)"
 
 # ssh-agent
-echo -n 'ssh-agent:'
-source ~/.ssh-agent-info
-ssh-add -l >&/dev/null
-if [[ $? -eq 2 ]]; then
-  echo -n 'ssh-agent: restart...'
-  ssh-agent > ~/.ssh-agent-info
-  source ~/.ssh-agent-info
-fi
-if ssh-add -l >&/dev/null; then
-  echo "ssh-agent: Identity is already stored."
-else
-  ssh-add
-fi
+# echo -n 'ssh-agent:'
+# source ~/.ssh-agent-info
+# ssh-add -l >&/dev/null
+# if [[ $? -eq 2 ]]; then
+  # echo -n 'ssh-agent: restart...'
+  # ssh-agent > ~/.ssh-agent-info
+  # source ~/.ssh-agent-info
+# fi
+# if ssh-add -l >&/dev/null; then
+  # echo "ssh-agent: Identity is already stored."
+# else
+  # ssh-add
+# fi
