@@ -5,12 +5,7 @@ set laststatus=2
 "+++ NeoBundle
 filetype plugin indent off
 
-" if has('vim_starting')
-  " set runtimepath+=~/dotfiles/.vim/bundle/neobundle.vim/
-  " call neobundle#rc(expand('~/dotfiles/.vim/bundle/'))
-" endif
-
-  set runtimepath+=~/dotfiles/.vim/bundle/neobundle.vim/
+set runtimepath+=~/dotfiles/.vim/bundle/neobundle.vim/
 call neobundle#begin(expand('~/dotfiles/.vim/bundle/'))
 
 NeoBundleFetch 'Shougo/neobundle.vim'
