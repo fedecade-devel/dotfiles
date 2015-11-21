@@ -35,6 +35,10 @@ NeoBundle 'airblade/vim-gitgutter'
 NeoBundleLazy 'vim-scripts/python_fold', {
       \ "autoload" : {"filetypes" : ["python", "python3", "python.pytest", "djangohtml"]}}
 NeoBundle 'scrooloose/syntastic'
+NeoBundle 'kannokanno/previm'
+NeoBundle 'elzr/vim-json'
+NeoBundle 'mattn/emmet-vim'
+NeoBundle 'hail2u/vim-css3-syntax'
 
 call neobundle#end()
 
@@ -65,8 +69,12 @@ if has("autocmd")
   filetype plugin on
   filetype indent on
 
-  autocmd FileType php setlocal ts=4 sw=4 sts=4 et
-  autocmd FileType html setlocal ts=2 sw=2 sts=2 et
+  autocmd FileType php setlocal ts=4 sw=4 sts=4 et ai si
+  autocmd FileType javascript setlocal ts=4 sw=4 sts=4 et ai si
+  autocmd FileType html setlocal ts=2 sw=2 sts=2 et ai si
+  autocmd FileType css setlocal ts=2 sw=2 sts=2 et ai si
+  autocmd FileType sh setlocal ts=2 sw=2 sts=2 et ai si
+  autocmd FileType json setlocal ts=2 sw=2 sts=2 et ai si
 endif
 
 "+++ Extra
@@ -298,5 +306,49 @@ let g:syntastic_python_flake8_args = '--ignore="E501"'
 set statusline +=%#warningmsg#
 set statusline +=%{SyntasticStatusLineFlag()}
 set statusline +=%*
+
+"++ markdown
+let g:previm_open_cmd = 'open -a /Applications/Google\ Chrome.app'
+augroup PrevimSettings
+  autocmd!
+  autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
+augroup end
+nnoremap sV :PrevimOpen<Cr>
+
+"++ vim-json
+let g:vim_json_syntax_conceal = 0
+
+"++ for jq
+" command! -nargs=? Jq call s:Jq(<f-args>)
+" function! s:Jq(...)
+  " if 0 == a:0
+    " let l:arg = "."
+  " else
+    " let l:arg = a:1
+  " endif
+  " execute "%! jq 95fe1a73-e2e2-4737-bea1-a44257c50fc8quot;".l:arg."95fe1a73-e2e2-4743-bea1-a44257c50fc8quotl"
+" endfunction
+
+"++ emment settings
+let g:user_emmet_mode = 'iv'
+let g:user_emmet_leader_key = '<C-Y>'
+let g:use_emmet_complete_tag = 1
+let g:user_emmet_settings = {
+  \ 'lang' : 'ja',
+  \ 'html' : {
+  \   'filters' : 'html',
+  \ },
+  \ 'css' : {
+  \   'filters' : 'fc', 
+  \ },
+  \ 'php' : {
+  \   'extends' : 'html',
+  \   'filters' : 'html',
+  \ },
+  \ }
+augroup EmmitVim
+  autocmd!
+  autocmd FileType * let g:user_emmet_settings.indentation = '               '[:&tabstop]
+augroup END
 
 syntax on

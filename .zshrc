@@ -69,13 +69,20 @@ function vcs_echo {
 	echo "%{$color%}(%{$branch%})%{$reset_color%}" | sed -e s/@/"%F{yellow}@%f%{$color%}"/
 }
 
+function setup_prompt {
+vcs=`vcs_echo`
+PROMPT="%B%F{$1}[%m:%~]%f $vcs
+%(?.%(!,#,>).%F{red}%(!,#,>)%f)%b "
+}
+setup_prompt green
 # Prompt
 # local p_cdir="%B%F{cyan}[%~]%f%b"$'\n'
 # local p_info="%n@%m"
 # local p_mark="%B%F{ref}%(!,#,>)%f%b"
 # PROMPT="$p_cdir$p_info $p_mark"
-PROMPT='%B%F{green}[%~]%f `vcs_echo`
-%(?.%(!,#,>).%F{red}%(!,#,>)%f)%b '
+#
+# PROMPT='%B%F{green}[%m:%~]%f `vcs_echo`
+# %(?.%(!,#,>).%F{red}%(!,#,>)%f)%b '
 
 # tmux
 if [ -x "`which tmux 2>/dev/null`" ]; then
@@ -117,9 +124,7 @@ alias brew="env PATH=${PATH/\/Users\/horitetsuya\/\.phpenv\/shims:/} brew"
 # fi
 # eval "$(rbenv init - zsh)"
 
-# Host depend environment
-[ -f ~/.zshrc.`hostname -s` ] && source ~/.zshrc.`hostname -s`
-
+# OS depend environment
 case ${OSTYPE} in
   darwin*)
     export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
@@ -147,7 +152,9 @@ fi
 #setopt extendedglob nomatch
 
 # divenv
-eval "$(direnv hook zsh)"
+if [ -x "`which direnv 2>/dev/null`" ]; then
+  eval "$(direnv hook zsh)"
+fi
 
 # ssh-agent
 # echo -n 'ssh-agent:'
@@ -163,3 +170,11 @@ eval "$(direnv hook zsh)"
 # else
   # ssh-add
 # fi
+
+eval $(ssh-agent)
+function cleanup {
+  kill -9 $SSH_AGENT_PID
+}
+
+# Host depend environment
+[ -f ~/.zshrc.`hostname -s` ] && source ~/.zshrc.`hostname -s`
