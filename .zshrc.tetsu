@@ -1,7 +1,0 @@
-alias blog='$HOME/wb2g/blog/article'
-alias site='$HOME/Documents/wb2g/site'
-alias msc='$HOME/MSC2014/entry'
-
-alias safari='open -a safari'
-alias chrome='open -a /Applications/Google\ Chrome'
-alias firefox='open -a /Applications/Firefox.app/Contents/MacOS/firefox'
